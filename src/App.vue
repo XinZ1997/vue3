@@ -1,15 +1,12 @@
+
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+	<router-view></router-view>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
 
-<script>
-
-export default {
-  name: 'App'
-}
+export default defineComponent({
+  setup() {},
+});
 </script>
-
-<style>
-</style>
+<style lang="stylus" scoped></style>

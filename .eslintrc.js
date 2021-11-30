@@ -14,6 +14,7 @@ module.exports = {
     '@typescript-eslint/eslint-plugin'
   ],
   env: {
+    browser: true,
     node: true,
     es6: true
   },

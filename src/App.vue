@@ -2,27 +2,24 @@
   <router-view></router-view>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, reactive } from 'vue'
-import { getUserInfo } from './service/user-info'
-import { getMenuList } from './service/menu'
+import { defineComponent, onMounted, reactive, toRefs } from 'vue'
+import { getUserInfo, IUserInfo } from './service/user-info'
+import { getMenuList, IMenu } from './service/menu'
 
 export default defineComponent({
   setup() {
-    const state = reactive({
-      userInfo: {},
+    const state: { userInfo: IUserInfo; menuList: IMenu[] } = reactive({
+      userInfo: { id: 0 },
       menuList: [],
-    })
-    let userInfo = reactive({ id: '' })
-    let menuList = reactive({})
-    onMounted(() => {
-      init()
     })
     const init = async () => {
       state.userInfo = await getUserInfo()
-      state.menuList = await getMenuList(userInfo.id)
+      state.menuList = await getMenuList(state.userInfo.id)
     }
-
-    return { userInfo, menuList }
+    onMounted(() => {
+      init()
+    })
+    return { ...toRefs(state) }
   },
 })
 </script>

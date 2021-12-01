@@ -76,4 +76,22 @@ axios.interceptors.response.use(
   }
 )
 
-export default axios
+const get = async (url: string, params?: any): Promise<any> => {
+  try {
+    const res = await axios.get(url, params)
+    return res.data
+  } catch (error) {
+    return null
+  }
+}
+
+const post = async (url: string, params?: any): Promise<any> => {
+  try {
+    const res = await axios.post(url, params)
+    return res.data
+  } catch (error) {
+    return null
+  }
+}
+
+export { get, post }

@@ -1,5 +1,11 @@
-import axios from '../plugin/vue-axios'
+import { post } from '../plugin/vue-axios'
 
-export function getMenuList(params: any = '') {
-  return axios.post<string>('/tarsier-comm/permission/module/getModuleTree', params)
+export interface IMenu {
+  id?: number
+  children?: IMenu[]
+}
+
+export async function getMenuList(params: any = ''): Promise<IMenu[]> {
+  const res = await post('/tarsier-comm/permission/module/getModuleTree', params)
+  return Array.isArray(res) ? res : []
 }

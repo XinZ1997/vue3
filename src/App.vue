@@ -1,23 +1,28 @@
 <template>
+  <Menu :moduleTree="moduleTree"></Menu>
   <router-view></router-view>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from 'vue'
+import { defineComponent, onBeforeMount, reactive, toRefs } from 'vue'
 import { getUserInfo, IUserInfo } from './service/user-info'
-import { getMenuList, IMenu } from './service/menu'
+import { getMenuList, IModuleTree } from './service/menu'
+import Menu from './components/menu/index.vue'
 
 export default defineComponent({
+  components: {
+    Menu,
+  },
   setup() {
-    const state: { userInfo: IUserInfo; menuList: IMenu[] } = reactive({
+    const state: { userInfo: IUserInfo; moduleTree: IModuleTree } = reactive({
       userInfo: { id: 0 },
-      menuList: [],
+      moduleTree: { children: [] },
     })
-    onMounted(() => {
+    onBeforeMount(() => {
       init()
     })
     const init = async () => {
       state.userInfo = await getUserInfo()
-      state.menuList = await getMenuList(state.userInfo.id)
+      state.moduleTree = await getMenuList(state.userInfo.id)
     }
     return { ...toRefs(state) }
   },

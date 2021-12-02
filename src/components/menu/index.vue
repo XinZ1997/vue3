@@ -1,12 +1,36 @@
 <template>
-  <n-menu @update:value="handleUpdateValue" :options="menuOptions"></n-menu>
+  <n-menu :options="options"></n-menu>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { menuOptions } from './common'
+import { IModuleTree } from '../../service/menu'
+
 export default defineComponent({
-  setup() {
-    return menuOptions
+  name: 'Menu',
+  props: {
+    moduleTree: {
+      type: Object,
+      default: { children: [] },
+    },
+  },
+  setup(props) {
+    const processModuleTree = (moduleTree: IModuleTree[]) => {
+      return moduleTree
+        .filter((item) => item.status && !item.moduleType)
+        .map((item) => {
+          item = Object.assign({}, item)
+          if (item.children) {
+            item.children = processModuleTree(item.children)
+          }
+          return {
+            label: item.label,
+            key: item.id,
+            children: item.children,
+          }
+        })
+    }
+    const options = processModuleTree(props.moduleTree.children)
+    return { options }
   },
 })
 </script>

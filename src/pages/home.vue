@@ -1,14 +1,7 @@
-<template>
-  <Menu>{{ 23 }}</Menu>
-</template>
+<template></template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Menu from '../components/menu/index.vue'
 
-export default defineComponent({
-  components: {
-    Menu,
-  },
-})
+export default defineComponent({})
 </script>
 <style lang="stylus" scoped></style>

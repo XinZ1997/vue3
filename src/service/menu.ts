@@ -1,11 +1,14 @@
 import { post } from '../plugin/vue-axios'
 
-export interface IMenu {
+export interface IModuleTree {
   id?: number
-  children?: IMenu[]
+  label?: string
+  status?: number
+  moduleType?: number
+  children: IModuleTree[]
 }
 
-export async function getMenuList(params: unknown = ''): Promise<IMenu[]> {
+export async function getMenuList(params: unknown = ''): Promise<IModuleTree> {
   const res = await post('/tarsier-comm/permission/module/getModuleTree', params)
   return res || {}
 }

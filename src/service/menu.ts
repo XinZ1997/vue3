@@ -5,7 +5,7 @@ export interface IMenu {
   children?: IMenu[]
 }
 
-export async function getMenuList(params: any = ''): Promise<IMenu[]> {
+export async function getMenuList(params: unknown = ''): Promise<IMenu[]> {
   const res = await post('/tarsier-comm/permission/module/getModuleTree', params)
-  return Array.isArray(res) ? res : []
+  return res || {}
 }

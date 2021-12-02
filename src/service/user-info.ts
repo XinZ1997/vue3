@@ -12,7 +12,7 @@ export interface IUserInfo {
   userName?: string
 }
 
-export async function getUserInfo(params: any = ''): Promise<IUserInfo> {
+export async function getUserInfo(params: unknown = ''): Promise<IUserInfo> {
   const res = await post('/tarsier-comm/permission/user/getCurrentUser', params)
   return res || {}
 }

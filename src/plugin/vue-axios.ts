@@ -79,7 +79,7 @@ axios.interceptors.response.use(
 const get = async (url: string, params?: any): Promise<any> => {
   try {
     const res = await axios.get(url, params)
-    return res.data
+    return res.data || res
   } catch (error) {
     return null
   }
@@ -88,7 +88,7 @@ const get = async (url: string, params?: any): Promise<any> => {
 const post = async (url: string, params?: any): Promise<any> => {
   try {
     const res = await axios.post(url, params)
-    return res.data
+    return res.data || res
   } catch (error) {
     return null
   }

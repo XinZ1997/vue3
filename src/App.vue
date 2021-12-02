@@ -12,13 +12,13 @@ export default defineComponent({
       userInfo: { id: 0 },
       menuList: [],
     })
+    onMounted(() => {
+      init()
+    })
     const init = async () => {
       state.userInfo = await getUserInfo()
       state.menuList = await getMenuList(state.userInfo.id)
     }
-    onMounted(() => {
-      init()
-    })
     return { ...toRefs(state) }
   },
 })
